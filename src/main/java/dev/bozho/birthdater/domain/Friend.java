@@ -32,9 +32,10 @@ public class Friend {
 
     private long userId;
 
-    public Friend(String firstName, String lastName, LocalDate birthdate, long userId) {
+    public Friend(String firstName, String lastName, FriendType friendType, LocalDate birthdate, long userId) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.friendType = friendType;
         this.birthdate = birthdate;
         this.userId = userId;
     }
