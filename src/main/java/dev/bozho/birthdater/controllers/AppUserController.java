@@ -4,6 +4,7 @@ import dev.bozho.birthdater.domain.AppUser;
 import dev.bozho.birthdater.domain.Friend;
 import dev.bozho.birthdater.repository.AppUserRepository;
 import dev.bozho.birthdater.repository.FriendRepository;
+import dev.bozho.birthdater.service.impl.FriendServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class AppUserController {
     AppUserRepository appUserRepository;
 
     @Autowired
-    FriendRepository friendRepository;
+    private FriendServiceImpl friendService;
 
     @GetMapping("/users")
     public ResponseEntity<List<AppUser>> getAllUsers() {
@@ -76,8 +77,10 @@ public class AppUserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-//    @GetMapping("/user/{userId}/friends")
-//    public ResponseEntity<List<Friend>> getFriendsByUserId(@PathVariable("userId") long userId) {
-//
-//    }
+    @GetMapping("/user/{userId}/friends")
+    public ResponseEntity<List<Friend>> getFriendsByUserId(@PathVariable("userId") long userId) throws Exception {
+        List<Friend> friends = friendService.getFriendsOfUserByUserId(userId);
+
+        return new ResponseEntity<>(friends, HttpStatus.OK);
+    }
 }

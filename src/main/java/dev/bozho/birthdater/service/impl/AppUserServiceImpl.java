@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -27,6 +28,14 @@ public class AppUserServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return appUserRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, email)));
+    }
+
+    public Optional<AppUser> getUserById(long userId) {
+        return appUserRepository.findById(userId);
+    }
+
+    public boolean doesUserExistById(long userId) {
+        return getUserById(userId).isPresent();
     }
 
     public String signUpUser(AppUser appUser) {

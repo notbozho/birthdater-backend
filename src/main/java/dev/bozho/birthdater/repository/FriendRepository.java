@@ -14,7 +14,8 @@ public interface FriendRepository extends JpaRepository<Friend, Long> {
     Optional<Friend> findByUserId(long userId);
 
     @Query(
-            value = "SELECT * FROM Friend f WHERE f.userId = ?1",
+            value = "SELECT * FROM Friend f " +
+                    "WHERE f.user_id = ?1",
             nativeQuery = true)
     Optional<List<Friend>> findAllByUserId(long userId);
 }
