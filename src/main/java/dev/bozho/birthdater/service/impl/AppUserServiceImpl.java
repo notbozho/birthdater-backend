@@ -1,4 +1,4 @@
-package dev.bozho.birthdater.service;
+package dev.bozho.birthdater.service.impl;
 
 import dev.bozho.birthdater.domain.AppUser;
 import dev.bozho.birthdater.repository.AppUserRepository;
@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-public class AppUserService implements UserDetailsService {
+public class AppUserServiceImpl implements UserDetailsService {
 
     private final static String USER_NOT_FOUND_MSG =
             "User with email %s not found";

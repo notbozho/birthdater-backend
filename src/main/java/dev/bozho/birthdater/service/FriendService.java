@@ -1,11 +1,10 @@
 package dev.bozho.birthdater.service;
 
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
+import dev.bozho.birthdater.domain.Friend;
 
-@Service
-@AllArgsConstructor
-public class FriendService {
+import java.util.List;
 
+public interface FriendService {
 
+    List<Friend> getFriendsOfUserByUserId(long userId);
 }
