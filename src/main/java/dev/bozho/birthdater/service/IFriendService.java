@@ -8,5 +8,5 @@ public interface IFriendService {
 
     List<Friend> getFriendsOfUserByUserId(long userId) throws Exception;
 
-    Friend createFriend(Friend friend) throws Exception;
+    Friend createFriend(Friend friend);
 }

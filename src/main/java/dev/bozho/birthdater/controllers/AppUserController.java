@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/users")
 public class AppUserController {
 
     @Autowired
@@ -25,7 +25,7 @@ public class AppUserController {
     @Autowired
     private FriendServiceImpl friendService;
 
-    @GetMapping("/users")
+    @GetMapping("/")
     public ResponseEntity<List<AppUser>> getAllUsers() {
         try {
             List<AppUser> users = new ArrayList<AppUser>();
@@ -42,7 +42,7 @@ public class AppUserController {
         }
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/get/{userId}")
     public ResponseEntity<AppUser> getUserById(@PathVariable("userId") long userId) {
         Optional<AppUser> appUser = appUserRepository.findById(userId);
 
@@ -53,7 +53,7 @@ public class AppUserController {
         }
     }
 
-    @PostMapping("/user/new")
+    @PostMapping("/new")
     public ResponseEntity<AppUser> createUser(@RequestBody AppUser appUser) {
         try {
             AppUser _appUser = appUserRepository
@@ -64,7 +64,7 @@ public class AppUserController {
         }
     }
 
-    @DeleteMapping("/user/{userId}/delete")
+    @DeleteMapping("/delete/{userId}")
     public ResponseEntity<HttpStatus> deleteUserById(@PathVariable("userId") long userId) {
         try {
             Optional<AppUser> appUser = appUserRepository.findById(userId);
@@ -77,7 +77,7 @@ public class AppUserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping("/user/{userId}/friends")
+    @GetMapping("/get/{userId}/friends")
     public ResponseEntity<List<Friend>> getFriendsByUserId(@PathVariable("userId") long userId) throws Exception {
         List<Friend> friends = friendService.getFriendsOfUserByUserId(userId);
 
