@@ -14,9 +14,10 @@ public class FriendServiceImpl implements FriendService {
 
     private final FriendRepository friendRepository;
 
-
     @Override
     public List<Friend> getFriendsOfUserByUserId(long userId) {
-        return null;
+        List<Friend> friends = friendRepository.findAllByUserId(userId).get();
+
+        return friends;
     }
 }

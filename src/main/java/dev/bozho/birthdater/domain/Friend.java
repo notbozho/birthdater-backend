@@ -45,4 +45,3 @@ public class Friend {
         this.userId = userId;
     }
 }
-}

@@ -18,7 +18,7 @@ public class AppUserSettings {
 
     @Id
     @Column(nullable = false)
-    private Long id;
+    private Long settingsId;
 
     @Column(nullable = false)
     private Long userId;

@@ -3,6 +3,7 @@ package dev.bozho.birthdater.service.impl;
 import dev.bozho.birthdater.domain.AppUser;
 import dev.bozho.birthdater.repository.AppUserRepository;
 import dev.bozho.birthdater.repository.FriendRepository;
+import dev.bozho.birthdater.utils.EmailValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,6 +21,8 @@ public class AppUserServiceImpl implements UserDetailsService {
     private final AppUserRepository appUserRepository;
     private final FriendRepository friendRepository;
 
+    private final EmailValidator emailValidator;
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return appUserRepository.findByEmail(email)
@@ -27,12 +30,17 @@ public class AppUserServiceImpl implements UserDetailsService {
     }
 
     public String signUpUser(AppUser appUser) {
+        boolean isEmailValid = emailValidator.test(appUser.getEmail());
+
+        if(!isEmailValid) {
+            throw new IllegalArgumentException("email not valid");
+        }
+
         boolean userExists = appUserRepository
                 .findByEmail(appUser.getEmail())
                 .isPresent();
 
         if (userExists) {
-
             throw new IllegalStateException("email already taken");
         }
 
