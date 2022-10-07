@@ -25,7 +25,7 @@ public class AppUserController {
     @Autowired
     private FriendServiceImpl friendService;
 
-    @GetMapping("/")
+    @GetMapping()
     public ResponseEntity<List<AppUser>> getAllUsers() {
         try {
             List<AppUser> users = new ArrayList<AppUser>();
