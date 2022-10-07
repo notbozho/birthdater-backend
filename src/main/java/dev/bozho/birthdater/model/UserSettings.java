@@ -1,4 +1,4 @@
-package dev.bozho.birthdater.domain;
+package dev.bozho.birthdater.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import javax.persistence.Id;
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity
-public class AppUserSettings {
+public class UserSettings {
 
     @Id
     @Column(nullable = false)

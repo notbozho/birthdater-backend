@@ -1,6 +1,6 @@
 package dev.bozho.birthdater.repository;
 
-import dev.bozho.birthdater.domain.Friend;
+import dev.bozho.birthdater.model.Friend;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

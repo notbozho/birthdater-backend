@@ -1,7 +1,7 @@
 package dev.bozho.birthdater.service.impl;
 
-import dev.bozho.birthdater.domain.AppUser;
-import dev.bozho.birthdater.repository.AppUserRepository;
+import dev.bozho.birthdater.model.User;
+import dev.bozho.birthdater.repository.UserRepository;
 import dev.bozho.birthdater.repository.FriendRepository;
 import dev.bozho.birthdater.utils.EmailValidator;
 import lombok.AllArgsConstructor;
@@ -15,55 +15,55 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-public class AppUserServiceImpl implements UserDetailsService {
+public class UserServiceImpl implements UserDetailsService {
 
     private final static String USER_NOT_FOUND_MSG =
             "User with email %s not found";
-    private final AppUserRepository appUserRepository;
+    private final UserRepository userRepository;
     private final FriendRepository friendRepository;
 
     private final EmailValidator emailValidator;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return appUserRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, email)));
+        return userRepository.findByEmail(email)
+                             .orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, email)));
     }
 
-    public Optional<AppUser> getUserById(long userId) {
-        return appUserRepository.findById(userId);
+    public Optional<User> getUserById(long userId) {
+        return userRepository.findById(userId);
     }
 
     public boolean doesUserExistById(long userId) {
         return getUserById(userId).isPresent();
     }
 
-    public String signUpUser(AppUser appUser) {
-        boolean isEmailValid = emailValidator.test(appUser.getEmail());
+    public String signUpUser(User user) {
+        boolean isEmailValid = emailValidator.test(user.getEmail());
 
         if(!isEmailValid) {
             throw new IllegalArgumentException("email not valid");
         }
 
-        boolean userExists = appUserRepository
-                .findByEmail(appUser.getEmail())
+        boolean userExists = userRepository
+                .findByEmail(user.getEmail())
                 .isPresent();
 
         if (userExists) {
             throw new IllegalStateException("email already taken");
         }
 
-        appUser.setPassword(appUser.getPassword());
+        user.setPassword(user.getPassword());
 
-        appUserRepository.save(appUser);
+        userRepository.save(user);
 
         String token = UUID.randomUUID().toString();
 
         return token;
     }
 
-    public int enableAppUser(String email) {
-        return appUserRepository.enableAppUser(email);
+    public int enableUser(String email) {
+        return userRepository.enableUser(email);
     }
 
 }

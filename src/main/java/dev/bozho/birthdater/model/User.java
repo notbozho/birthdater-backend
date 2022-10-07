@@ -1,6 +1,6 @@
-package dev.bozho.birthdater.domain;
+package dev.bozho.birthdater.model;
 
-import dev.bozho.birthdater.domain.enums.AppUserRole;
+import dev.bozho.birthdater.model.enums.UserRole;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +18,7 @@ import java.util.Collections;
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity
-public class AppUser implements UserDetails {
+public class User implements UserDetails {
 
 
     @Id
@@ -34,26 +34,26 @@ public class AppUser implements UserDetails {
     private String password;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private AppUserRole appUserRole;
+    private UserRole userRole;
     private Boolean locked = false;
     private Boolean enabled = false;
 
-    public AppUser(String firstName,
-                   String lastName,
-                   String email,
-                   String password,
-                   AppUserRole appUserRole) {
+    public User(String firstName,
+                String lastName,
+                String email,
+                String password,
+                UserRole userRole) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.appUserRole = appUserRole;
+        this.userRole = userRole;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority =
-                new SimpleGrantedAuthority(appUserRole.name());
+                new SimpleGrantedAuthority(userRole.name());
         return Collections.singletonList(authority);
     }
 

@@ -1,36 +1,34 @@
 package dev.bozho.birthdater.controllers;
 
-import dev.bozho.birthdater.domain.AppUser;
-import dev.bozho.birthdater.domain.Friend;
-import dev.bozho.birthdater.repository.AppUserRepository;
-import dev.bozho.birthdater.repository.FriendRepository;
+import dev.bozho.birthdater.model.User;
+import dev.bozho.birthdater.model.Friend;
+import dev.bozho.birthdater.repository.UserRepository;
 import dev.bozho.birthdater.service.impl.FriendServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
-public class AppUserController {
+public class UserController {
 
     @Autowired
-    AppUserRepository appUserRepository;
+    UserRepository userRepository;
 
     @Autowired
     private FriendServiceImpl friendService;
 
     @GetMapping()
-    public ResponseEntity<List<AppUser>> getAllUsers() {
+    public ResponseEntity<List<User>> getAllUsers() {
         try {
-            List<AppUser> users = new ArrayList<AppUser>();
+            List<User> users = new ArrayList<User>();
 
-            appUserRepository.findAll().forEach(users::add);
+            userRepository.findAll().forEach(users::add);
 
             if (users.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -43,22 +41,22 @@ public class AppUserController {
     }
 
     @GetMapping("/get/{userId}")
-    public ResponseEntity<AppUser> getUserById(@PathVariable("userId") long userId) {
-        Optional<AppUser> appUser = appUserRepository.findById(userId);
+    public ResponseEntity<User> getUserById(@PathVariable("userId") long userId) {
+        Optional<User> user = userRepository.findById(userId);
 
-        if(appUser.isPresent()) {
-            return new ResponseEntity<>(appUser.get(), HttpStatus.OK);
+        if(user.isPresent()) {
+            return new ResponseEntity<>(user.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping("/new")
-    public ResponseEntity<AppUser> createUser(@RequestBody AppUser appUser) {
+    public ResponseEntity<User> createUser(@RequestBody User user) {
         try {
-            AppUser _appUser = appUserRepository
-                    .save(new AppUser(appUser.getFirstName(), appUser.getLastName(), appUser.getEmail(),appUser.getPassword(), appUser.getAppUserRole()));
-            return new ResponseEntity<>(_appUser, HttpStatus.CREATED);
+            User _user = userRepository
+                    .save(new User(user.getFirstName(), user.getLastName(), user.getEmail(),user.getPassword(), user.getUserRole()));
+            return new ResponseEntity<>(_user, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -67,11 +65,11 @@ public class AppUserController {
     @DeleteMapping("/delete/{userId}")
     public ResponseEntity<HttpStatus> deleteUserById(@PathVariable("userId") long userId) {
         try {
-            Optional<AppUser> appUser = appUserRepository.findById(userId);
+            Optional<User> user = userRepository.findById(userId);
 
-            if(appUser.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            if(user.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-            appUserRepository.deleteById(userId);
+            userRepository.deleteById(userId);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

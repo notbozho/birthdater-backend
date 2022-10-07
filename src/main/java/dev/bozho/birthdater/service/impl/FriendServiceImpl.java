@@ -1,7 +1,6 @@
 package dev.bozho.birthdater.service.impl;
 
-import dev.bozho.birthdater.domain.AppUser;
-import dev.bozho.birthdater.domain.Friend;
+import dev.bozho.birthdater.model.Friend;
 import dev.bozho.birthdater.repository.FriendRepository;
 import dev.bozho.birthdater.service.IFriendService;
 import lombok.AllArgsConstructor;
@@ -10,18 +9,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class FriendServiceImpl implements IFriendService {
 
-    private final AppUserServiceImpl appUserService;
+    private final UserServiceImpl userService;
     private final FriendRepository friendRepository;
 
     @Override
     public List<Friend> getFriendsOfUserByUserId(long userId) throws Exception {
-        boolean validUser = appUserService.doesUserExistById(userId);
+        boolean validUser = userService.doesUserExistById(userId);
         if(!validUser) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User with id: " + userId + " doesn't exist");
 
         List<Friend> friends = friendRepository.findAllByUserId(userId).get();

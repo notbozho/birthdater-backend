@@ -1,9 +1,6 @@
 package dev.bozho.birthdater.controllers;
 
-import dev.bozho.birthdater.domain.AppUser;
-import dev.bozho.birthdater.domain.Friend;
-import dev.bozho.birthdater.domain.enums.FriendType;
-import dev.bozho.birthdater.repository.FriendRepository;
+import dev.bozho.birthdater.model.Friend;
 import dev.bozho.birthdater.service.impl.FriendServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/friends")

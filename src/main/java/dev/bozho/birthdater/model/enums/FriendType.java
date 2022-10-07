@@ -1,4 +1,4 @@
-package dev.bozho.birthdater.domain.enums;
+package dev.bozho.birthdater.model.enums;
 
 public enum FriendType {
     FRIEND,

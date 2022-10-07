@@ -1,6 +1,6 @@
 package dev.bozho.birthdater.service;
 
-import dev.bozho.birthdater.domain.Friend;
+import dev.bozho.birthdater.model.Friend;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package dev.bozho.birthdater.domain;
+package dev.bozho.birthdater.model;
 
-import dev.bozho.birthdater.domain.enums.FriendType;
+import dev.bozho.birthdater.model.enums.FriendType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
