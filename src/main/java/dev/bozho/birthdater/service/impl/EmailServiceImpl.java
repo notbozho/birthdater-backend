@@ -14,22 +14,22 @@ import javax.mail.internet.MimeMessage;
 @AllArgsConstructor
 public class EmailServiceImpl implements IEmailService {
 
-    private final JavaMailSender mailSender;
+//    private final JavaMailSender mailSender;
 
     @Override
     @Async
     public void send(String to, String subject, String emailContent) {
-        try {
-            MimeMessage mimeMessage = mailSender.createMimeMessage();
-            MimeMessageHelper helper =
-                    new MimeMessageHelper(mimeMessage, "utf-8");
-            helper.setText(emailContent, true);
-            helper.setTo(to);
-            helper.setSubject(subject);
-            helper.setFrom("hello@birthdater.com");
-            mailSender.send(mimeMessage);
-        } catch (MessagingException e) {
-            throw new IllegalStateException("failed to send email");
-        }
+//        try {
+////            MimeMessage mimeMessage = mailSender.createMimeMessage();
+////            MimeMessageHelper helper =
+////                    new MimeMessageHelper(mimeMessage, "utf-8");
+////            helper.setText(emailContent, true);
+////            helper.setTo(to);
+////            helper.setSubject(subject);
+////            helper.setFrom("hello@birthdater.com");
+////            mailSender.send(mimeMessage);
+//        } catch (MessagingException e) {
+//            throw new IllegalStateException("failed to send email");
+//        }
     }
 }
