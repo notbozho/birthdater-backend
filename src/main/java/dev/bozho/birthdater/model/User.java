@@ -24,7 +24,6 @@ import java.util.Collections;
 @Entity
 public class User implements UserDetails {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long userId;

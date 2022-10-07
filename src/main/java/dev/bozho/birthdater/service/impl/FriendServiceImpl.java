@@ -18,7 +18,7 @@ public class FriendServiceImpl implements IFriendService {
     private final FriendRepository friendRepository;
 
     @Override
-    public List<Friend> getFriendsOfUserByUserId(long userId) throws Exception {
+    public List<Friend> getFriendsOfUserId(long userId) throws Exception {
         boolean validUser = userService.doesUserExistById(userId);
         if(!validUser) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User with id: " + userId + " doesn't exist");
 

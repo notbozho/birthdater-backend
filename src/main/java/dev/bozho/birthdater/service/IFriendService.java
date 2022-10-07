@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IFriendService {
 
-    List<Friend> getFriendsOfUserByUserId(long userId) throws Exception;
+    List<Friend> getFriendsOfUserId(long userId) throws Exception;
 
     Friend createFriend(Friend friend);
 }
